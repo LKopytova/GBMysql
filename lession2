@@ -1,0 +1,110 @@
+Задание 1
+
+CREATE DATABASE shop;
+USE shop
+CREATE TABLE catalogs (name INT);
+INSERT INTO catalogs VALUES();
+SELECT * FROM catalogs;
++------+
+| name |
++------+
+| NULL |
++------+
+TRUNCATE catalogs;
+ALTER TABLE catalogs CHANGE name name INT UNSIGNED NOT NULL;
+UPDATE catalogs SET name = 'empty' WHERE (name is null)
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | int unsigned | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+Зачение в поле NULL заменить не получится, тк мы запретили вставлять в это поле значения, используя атрибут NOT NULL
+
+
+Задание 2
+
+CREATE DATABASE media;
+USE media;
+drop table if exists media_files;
+create table media_files (
+	id serial primary key,
+    `path` varchar(256) not null,
+    file_type varchar(128) not null,
+    title varchar(128) not null,
+    author varchar(128) not null,
+    `description` text,
+    style varchar(128),
+    owner_user_id int);
+
+describe media_files;
++---------------+-----------------+------+-----+---------+----------------+
+| Field         | Type            | Null | Key | Default | Extra          |
++---------------+-----------------+------+-----+---------+----------------+
+| id            | bigint unsigned | NO   | PRI | NULL    | auto_increment |
+| path          | varchar(256)    | NO   |     | NULL    |                |
+| file_type     | varchar(128)    | NO   |     | NULL    |                |
+| title         | varchar(128)    | NO   |     | NULL    |                |
+| author        | varchar(128)    | NO   |     | NULL    |                |
+| description   | text            | YES  |     | NULL    |                |
+| style         | varchar(128)    | YES  |     | NULL    |                |
+| owner_user_id | int             | YES  |     | NULL    |                |
++---------------+-----------------+------+-----+---------+----------------+
+
+insert into media_files values
+	(null, 
+    'C:\\Пользователь\\User\\Музыка\\Horus.mp3',
+    'audio',
+    'Horus',
+    'Owl Vision',
+    'album Downlord',
+    'Techno, Minimal, Electro',
+    1),
+    (null, 
+    'C:\\Пользователь\\User\\Видио\\funny moments.mp4',
+    'video',
+    'Cats',
+    'Me',
+    'cats play funny',
+    'none',
+    1),
+    (null, 
+    'C:\\Пользователь\\User\\Изображения\\3hGFjkBvgc.jpeg',
+    'picture',
+    '3hGFjkBvgc',
+    '3hGFjkBvgc',
+    '3hGFjkBvgc',
+    'none',
+    1);
+    
+
+select * from media_files\G
+
+*************************** 1. row ***************************
+           id: 1
+         path: C:\Пользователь\User\Музыка\Horus.mp3
+    file_type: audio
+        title: Horus
+       author: Owl Vision
+  description: album Downlord
+        style: Techno, Minimal, Electro
+owner_user_id: 1
+*************************** 2. row ***************************
+           id: 2
+         path: C:\Пользователь\User\Видио\funny moments.mp4
+    file_type: video
+        title: Cats
+       author: Me
+  description: cats play funny
+        style: none
+owner_user_id: 1
+*************************** 3. row ***************************
+           id: 3
+         path: C:\Пользователь\User\Изображения\3hGFjkBvgc.jpeg
+    file_type: picture
+        title: 3hGFjkBvgc
+       author: 3hGFjkBvgc
+  description: 3hGFjkBvgc
+        style: none
+owner_user_id: 1
+3 rows in set (0,01 sec)
